@@ -1,10 +1,17 @@
 package hexlet.code;
 
+import picocli.CommandLine;
+
+@CommandLine.Command(name = "gendiff", mixinStandardHelpOptions = true, version = "differ 4.0",
+        description = "Compares two configuration files and shows a difference.")
 public class App {
 
+
     public static void main(String[] args) {
+        int exitCode = new CommandLine(new App()).execute(args);
+        System.exit(exitCode);
         System.out.println("Hello World!");
     }
-    
+
 }
 
