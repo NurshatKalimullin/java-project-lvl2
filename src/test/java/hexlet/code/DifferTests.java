@@ -36,4 +36,20 @@ public class DifferTests {
             assertThat(e.getMessage()).isEqualTo(expected);
         }
     }
+
+    @Test
+    public void testYamlDiffer() throws Exception {
+        String expected = "{\n"
+                + "- follow: false\n"
+                + "  host: hexlet.io\n"
+                + "- proxy: 123.234.53.22\n"
+                + "- timeout: 50\n"
+                + "+ timeout: 20\n"
+                + "+ verbose: true\n"
+                + "}";
+        File firstFile = new File("src/test/resources/file1.yaml");
+        File secondFile = new File("src/test/resources/file2.yaml");
+        String diff = Differ.generate(firstFile, secondFile, "YAML");
+        assertThat(diff).isEqualTo(expected);
+    }
 }
