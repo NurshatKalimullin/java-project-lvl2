@@ -82,13 +82,7 @@ public class Differ {
                 }
             }
 
-            //return last.toString();
-
-            return convertWithGuava(last);
-
-//            mapper.configure(JsonWriteFeature.QUOTE_FIELD_NAMES.mappedFeature(), false);
-//            mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
-//            return  mapper.writerWithDefaultPrettyPrinter().writeValueAsString(last);
+            return convertWithIteration(last);
         }
 
         return "string";
@@ -98,8 +92,14 @@ public class Differ {
         return generate(filepath1, filepath2, "stylish");
     }
 
-    public static String convertWithGuava(Map<String, Object> map) {
-        return "{" + Joiner.on("").withKeyValueSeparator(":").join(map) + "}";
+    public static String convertWithIteration(Map<String, ?> map) {
+        StringBuilder mapAsString = new StringBuilder("{\n");
+        for (String key : map.keySet()) {
+            mapAsString.append(key + ": " + map.get(key) + "\n");
+        }
+        mapAsString.append("}");
+        mapAsString.delete(mapAsString.length() - 1, mapAsString.length()).append("}");
+        return mapAsString.toString();
     }
 
     private static byte[] readFile(File filepath) throws Exception {
