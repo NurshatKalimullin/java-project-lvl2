@@ -10,7 +10,6 @@ public class DifferTests {
 
     @Test
     public void testJsonDiffer() throws Exception {
-
         String expected = "{\n"
                 + "- follow: false\n"
                 + "  host: hexlet.io\n"
@@ -19,9 +18,22 @@ public class DifferTests {
                 + "+ timeout: 20\n"
                 + "+ verbose: true\n"
                 + "}";
-        File firstFile = new File("project2files/file1.json");
-        File secondFile = new File("project2files/file2.json");
+        File firstFile = new File("src/test/resources/file1.json");
+        File secondFile = new File("src/test/resources/file2.json");
         String diff = Differ.generate(firstFile, secondFile, "JSON");
         assertThat(diff).isEqualTo(expected);
+    }
+
+    @Test
+    public void testUnexpectedFile() {
+        Exception exception = new Exception("File format is incorrect");
+        String expected = exception.getMessage();
+        File firstFile = new File("src/test/resources/file1.json");
+        File secondFile = new File("src/test/resources/file2.doc");
+        try {
+            String diff = Differ.generate(firstFile, secondFile, "JSON");
+        } catch (Exception e) {
+            assertThat(e.getMessage()).isEqualTo(expected);
+        }
     }
 }

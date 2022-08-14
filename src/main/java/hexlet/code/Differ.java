@@ -1,14 +1,8 @@
 package hexlet.code;
 
 
-//import com.fasterxml.jackson.core.JsonFactory;
-//import com.fasterxml.jackson.core.JsonGenerator;
-//import com.fasterxml.jackson.core.JsonParser;
-//import com.fasterxml.jackson.core.json.JsonReadFeature;
-//import com.fasterxml.jackson.core.json.JsonWriteFeature;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Joiner;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -82,6 +76,7 @@ public class Differ {
                 }
             }
 
+            System.out.println(convertWithIteration(last));
             return convertWithIteration(last);
         }
 
