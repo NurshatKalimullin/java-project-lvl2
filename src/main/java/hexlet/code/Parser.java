@@ -12,17 +12,16 @@ import java.util.Map;
 public class Parser {
 
 
-    public static Map<String, Object> getFileData(String fileContents) throws IOException {
+    public static Map<String, Object> getFileData(String fileContents, String filepath) throws IOException {
         Map<String, Object> map = new HashMap<>();
-
-        if (fileContents.endsWith(".json")) {
+        if (filepath.endsWith(".json")) {
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
             map = mapper.readValue(fileContents, new TypeReference<>() {
             });
         }
 
-        if (fileContents.endsWith(".yaml")) {
+        if (filepath.endsWith(".yaml")) {
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
             map = mapper.readValue(fileContents, new TypeReference<>() { });
         }

@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Differ {
 
@@ -16,14 +15,13 @@ public class Differ {
         String firstFileContents = readFile(filepath1);
         String secondFileContents = readFile(filepath2);
 
-        LinkedHashMap<String, Object> difference
+        LinkedHashMap<String, Object> diffs
                 = new LinkedHashMap<>();
 
+        Map<String, Object> firstMap = Parser.getFileData(firstFileContents, filepath1);
+        Map<String, Object> secondMap = Parser.getFileData(secondFileContents, filepath2);
 
-        Map<String, Object> firstMap = Parser.getFileData(firstFileContents);
-        Map<String, Object> secondMap = Parser.getFileData(secondFileContents);
-
-
+        //extract keys and sort them
         Set<String> firstKeys = firstMap.keySet();
         Set<String> secondKeys = secondMap.keySet();
         TreeSet<String> unionKeys = new TreeSet<>(firstKeys);
@@ -32,18 +30,18 @@ public class Differ {
         for (String key : unionKeys) {
             if (firstMap.containsKey(key) && secondMap.containsKey(key)) {
                 if (String.valueOf(firstMap.get(key)).equals(String.valueOf(secondMap.get(key)))) {
-                    difference.put("  " + key, String.valueOf(firstMap.get(key)));
+                    diffs.put("  " + key, String.valueOf(firstMap.get(key)));
                 } else {
-                    difference.put("- " + key, String.valueOf(firstMap.get(key)));
-                    difference.put("+ " + key, String.valueOf(secondMap.get(key)));
+                    diffs.put("- " + key, String.valueOf(firstMap.get(key)));
+                    diffs.put("+ " + key, String.valueOf(secondMap.get(key)));
                 }
             } else if (firstMap.containsKey(key) && !secondMap.containsKey(key)) {
-                difference.put("- " + key, String.valueOf(firstMap.get(key)));
+                diffs.put("- " + key, String.valueOf(firstMap.get(key)));
             } else {
-                difference.put("+ " + key, String.valueOf(secondMap.get(key)));
+                diffs.put("+ " + key, String.valueOf(secondMap.get(key)));
             }
         }
-        return convertWithIteration(difference);
+        return Formatter.format(diffs, format);
     }
 
 

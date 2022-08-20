@@ -36,7 +36,7 @@ public class DifferTests {
                 + "}";
         String firstFile = "src/test/resources/file1.json";
         String secondFile = "src/test/resources/file2.json";
-        String diff = Differ.generate(firstFile, secondFile, "JSON");
+        String diff = Differ.generate(firstFile, secondFile);
         assertThat(diff).isEqualTo(expected);
     }
 
@@ -47,7 +47,7 @@ public class DifferTests {
         String firstFile = "src/test/resources/file1.json";
         String secondFile = "src/test/resources/file2.doc";
         try {
-            String diff = Differ.generate(firstFile, secondFile, "JSON");
+            String diff = Differ.generate(firstFile, secondFile);
         } catch (Exception e) {
             assertThat(e.getMessage()).isEqualTo(expected);
         }
@@ -65,7 +65,7 @@ public class DifferTests {
                 + "}";
         String firstFile = "src/test/resources/file11.yaml";
         String secondFile = "src/test/resources/file21.yaml";
-        String diff = Differ.generate(firstFile, secondFile, "YAML");
+        String diff = Differ.generate(firstFile, secondFile);
         assertThat(diff).isEqualTo(expected);
     }
 
@@ -99,7 +99,7 @@ public class DifferTests {
                 + "}";
         String firstFile = "src/test/resources/file12.yaml";
         String secondFile = "src/test/resources/file22.yaml";
-        String diff = Differ.generate(firstFile, secondFile, "YAML");
+        String diff = Differ.generate(firstFile, secondFile);
         assertThat(diff).isEqualTo(expected);
     }
 }
