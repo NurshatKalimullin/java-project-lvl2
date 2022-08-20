@@ -30,15 +30,15 @@ public class Differ {
         for (String key : unionKeys) {
             if (firstMap.containsKey(key) && secondMap.containsKey(key)) {
                 if (String.valueOf(firstMap.get(key)).equals(String.valueOf(secondMap.get(key)))) {
-                    diffs.put("  " + key, String.valueOf(firstMap.get(key)));
+                    diffs.put("  " + key, firstMap.get(key));
                 } else {
-                    diffs.put("- " + key, String.valueOf(firstMap.get(key)));
-                    diffs.put("+ " + key, String.valueOf(secondMap.get(key)));
+                    diffs.put("- " + key, firstMap.get(key));
+                    diffs.put("+ " + key, secondMap.get(key));
                 }
             } else if (firstMap.containsKey(key) && !secondMap.containsKey(key)) {
-                diffs.put("- " + key, String.valueOf(firstMap.get(key)));
+                diffs.put("- " + key, firstMap.get(key));
             } else {
-                diffs.put("+ " + key, String.valueOf(secondMap.get(key)));
+                diffs.put("+ " + key, secondMap.get(key));
             }
         }
         return Formatter.format(diffs, format);
@@ -46,19 +46,9 @@ public class Differ {
 
 
     public static String generate(String filepath1, String filepath2) throws Exception {
-        return generate(filepath1, filepath2, "stylish");
+        return generate(filepath1, filepath2, "plain");
     }
 
-
-    public static String convertWithIteration(Map<String, ?> map) {
-        StringBuilder mapAsString = new StringBuilder("{\n");
-        for (String key : map.keySet()) {
-            mapAsString.append(key + ": " + map.get(key) + "\n");
-        }
-        mapAsString.append("}");
-        mapAsString.delete(mapAsString.length() - 1, mapAsString.length()).append("}");
-        return mapAsString.toString();
-    }
 
     private static String readFile(String filepath) throws Exception {
         if (!(filepath).endsWith(".json")
