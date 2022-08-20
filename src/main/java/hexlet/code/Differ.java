@@ -1,77 +1,53 @@
 package hexlet.code;
 
 
-import java.io.File;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.LinkedHashMap;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Differ {
 
 
-    public static String generate(File filepath1, File filepath2, String format)
+    public static String generate(String filepath1, String filepath2, String format)
             throws Exception {
 
-        byte[] firstFileContents = readFile(filepath1);
-        byte[] secondFileContents = readFile(filepath2);
+        String firstFileContents = readFile(filepath1);
+        String secondFileContents = readFile(filepath2);
 
-        Map<String, Object> difference
-                = new HashMap<>();
-
-
-        Map<String, Object> firstMap = Parser.getFileData(firstFileContents, format);
-
-        Map<String, Object> secondMap = Parser.getFileData(secondFileContents, format);
-
-        for (Map.Entry<String, Object> one : firstMap.entrySet()) {
-            if (!secondMap.containsKey(one.getKey())) {
-                difference.put("- " + one.getKey(), one.getValue());
-            } else if (!secondMap.get(one.getKey()).equals(one.getValue())) {
-                difference.put("- " + one.getKey(), one.getValue());
-            } else {
-                difference.put("  " + one.getKey(), one.getValue());
-            }
-        }
-        for (Map.Entry<String, Object> two : secondMap.entrySet()) {
-            if (!firstMap.containsKey(two.getKey())) {
-                difference.put("+ " + two.getKey(), two.getValue());
-            } else if (!firstMap.get(two.getKey()).equals(two.getValue())) {
-                difference.put("+ " + two.getKey(), two.getValue());
-            } else {
-                difference.put("  " + two.getKey(), two.getValue());
-            }
-        }
-
-        List<String> newList = new ArrayList<>(difference.keySet());
-
-        List<String> elList = newList
-                .stream()
-                .sorted((o1, o2) ->
-                        o1.substring(2).compareToIgnoreCase(o2.substring(2))
-                )
-                .collect(Collectors.toList());
-
-        LinkedHashMap<String, Object> last
+        LinkedHashMap<String, Object> difference
                 = new LinkedHashMap<>();
 
-        for (String e : elList) {
-            for (Map.Entry<String, Object> o : difference.entrySet()) {
-                if (e.equals(o.getKey())) {
-                    last.put(e, o.getValue());
+
+        Map<String, Object> firstMap = Parser.getFileData(firstFileContents);
+        Map<String, Object> secondMap = Parser.getFileData(secondFileContents);
+
+
+        Set<String> firstKeys = firstMap.keySet();
+        Set<String> secondKeys = secondMap.keySet();
+        TreeSet<String> unionKeys = new TreeSet<>(firstKeys);
+        unionKeys.addAll(secondKeys);
+
+        for (String key : unionKeys) {
+            if (firstMap.containsKey(key) && secondMap.containsKey(key)) {
+                if (String.valueOf(firstMap.get(key)).equals(String.valueOf(secondMap.get(key)))) {
+                    difference.put("  " + key, String.valueOf(firstMap.get(key)));
+                } else {
+                    difference.put("- " + key, String.valueOf(firstMap.get(key)));
+                    difference.put("+ " + key, String.valueOf(secondMap.get(key)));
                 }
+            } else if (firstMap.containsKey(key) && !secondMap.containsKey(key)) {
+                difference.put("- " + key, String.valueOf(firstMap.get(key)));
+            } else {
+                difference.put("+ " + key, String.valueOf(secondMap.get(key)));
             }
         }
-
-        System.out.println(convertWithIteration(last));
-        return convertWithIteration(last);
+        return convertWithIteration(difference);
     }
 
 
-    public static String generate(File filepath1, File filepath2) throws Exception {
+    public static String generate(String filepath1, String filepath2) throws Exception {
         return generate(filepath1, filepath2, "stylish");
     }
 
@@ -86,11 +62,20 @@ public class Differ {
         return mapAsString.toString();
     }
 
-    private static byte[] readFile(File filepath) throws Exception {
-        if (!(filepath.getAbsolutePath()).endsWith(".json")
-                && !(filepath.getAbsolutePath().endsWith(".yaml"))) {
+    private static String readFile(String filepath) throws Exception {
+        if (!(filepath).endsWith(".json")
+                && !(filepath.endsWith(".yaml"))) {
             throw new Exception("File format is incorrect");
         }
-        return Files.readAllBytes(filepath.toPath());
+        // Creating a path choosing file from local
+        // directory by creating an object of Path class
+        Path absolutePath
+                = Paths.get(filepath);
+
+        String fileContent;
+        // Now calling Files.readString() method to
+        // read the file
+        fileContent = Files.readString(absolutePath);
+        return fileContent;
     }
 }
