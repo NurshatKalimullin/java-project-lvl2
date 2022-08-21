@@ -10,7 +10,6 @@ public class Json {
     public static String formatToJson(LinkedHashMap<String, Object> map) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         String result = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
-        System.out.println(result);
         return result;
     }
 
