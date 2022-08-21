@@ -55,7 +55,7 @@ public class Differ {
 
     private static String readFile(String filepath) throws Exception {
         if (!(filepath).endsWith(".json")
-                && !(filepath.endsWith(".yaml"))) {
+                && !(filepath.endsWith(".yml"))) {
             throw new Exception("File format is incorrect");
         }
         // Creating a path choosing file from local

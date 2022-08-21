@@ -36,8 +36,8 @@ public class DifferTests {
 
     @Test
     public void testYamlDiffer() throws Exception {
-        String firstFile = "src/test/resources/file1.yaml";
-        String secondFile = "src/test/resources/file2.yaml";
+        String firstFile = "src/test/resources/file1.yml";
+        String secondFile = "src/test/resources/file2.yml";
         String diff = Differ.generate(firstFile, secondFile);
         Path resultPath
                 = Path.of("src/test/resources/stylishResult.txt");
