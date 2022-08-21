@@ -4,7 +4,10 @@ package hexlet.code;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Differ {
 
@@ -46,7 +49,7 @@ public class Differ {
 
 
     public static String generate(String filepath1, String filepath2) throws Exception {
-        return generate(filepath1, filepath2, "plain");
+        return generate(filepath1, filepath2, "stylish");
     }
 
 

@@ -8,19 +8,13 @@ public class Plain {
     public static String formatToStylish(LinkedHashMap<String, Object> map) {
         String result = "";
 
-        LinkedHashMap<String, Object> newMap = new LinkedHashMap<>();
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-            if (!entry.getKey().startsWith("  ")) {
-                newMap.put(entry.getKey(), entry.getValue());
-            }
-        }
-        for (Map.Entry<String, Object> entry1 : newMap.entrySet()) {
+        for (Map.Entry<String, Object> entry1 : map.entrySet()) {
             String key1 = entry1.getKey();
 
             if (key1.startsWith("- ")) {
                 Object value1 = entry1.getValue();
 
-                for (Map.Entry<String, Object> entry2 : newMap.entrySet()) {
+                for (Map.Entry<String, Object> entry2 : map.entrySet()) {
                     String key2 = entry2.getKey();
                     Object value2 = entry2.getValue();
 
@@ -36,28 +30,24 @@ public class Plain {
                         break;
                     }
                 }
-                if (!newMap.containsKey("+ " + key1.substring(2))){
+                if (!map.containsKey("+ " + key1.substring(2))){
                     result = result + "Property '"
                             + key1.substring(2)
                             + "' was removed"
                             + "\n";
-
                 }
-
-            } else if (key1.startsWith("+ ") && !newMap.containsKey("- " + key1.substring(2))){
+            } else if (key1.startsWith("+ ") && !map.containsKey("- " + key1.substring(2))){
                 result = result + "Property '"
                         + key1.substring(2)
                         + "' was added with value: "
                         + formatValue(entry1.getValue())
                         + "\n";
-
             }
-
         }
-        System.out.println(result);
         result = result.substring(0, result.length() - 1);
         return result;
     }
+
 
     private static String formatValue(Object value) {
         String result;

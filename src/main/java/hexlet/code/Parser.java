@@ -20,7 +20,6 @@ public class Parser {
             map = mapper.readValue(fileContents, new TypeReference<>() {
             });
         }
-
         if (filepath.endsWith(".yaml")) {
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
             map = mapper.readValue(fileContents, new TypeReference<>() { });
