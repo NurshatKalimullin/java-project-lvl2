@@ -15,9 +15,9 @@ public class DifferTests {
         String firstFile = "src/test/resources/file1.json";
         String secondFile = "src/test/resources/file2.json";
         String diff = Differ.generate(firstFile, secondFile);
-        Path plainResultPath
+        Path resultPath
                 = Path.of("src/test/resources/stylishResult.txt");
-        String expected = Files.readString(plainResultPath);
+        String expected = Files.readString(resultPath);
         assertThat(diff).isEqualTo(expected);
     }
 
@@ -36,12 +36,12 @@ public class DifferTests {
 
     @Test
     public void testYamlDiffer() throws Exception {
-        String firstFile = "src/test/resources/file12.yaml";
-        String secondFile = "src/test/resources/file22.yaml";
+        String firstFile = "src/test/resources/file1.yaml";
+        String secondFile = "src/test/resources/file2.yaml";
         String diff = Differ.generate(firstFile, secondFile);
-        Path plainResultPath
+        Path resultPath
                 = Path.of("src/test/resources/stylishResult.txt");
-        String expected = Files.readString(plainResultPath);
+        String expected = Files.readString(resultPath);
         assertThat(diff).isEqualTo(expected);
     }
 
@@ -50,9 +50,9 @@ public class DifferTests {
         String firstFile = "src/test/resources/file1.json";
         String secondFile = "src/test/resources/file2.json";
         String diff = Differ.generate(firstFile, secondFile, "plain" );
-        Path plainResultPath
+        Path resultPath
                 = Path.of("src/test/resources/plainResult.txt");
-        String expected = Files.readString(plainResultPath);
+        String expected = Files.readString(resultPath);
         assertThat(diff).isEqualTo(expected);
     }
 
@@ -61,9 +61,9 @@ public class DifferTests {
         String firstFile = "src/test/resources/file1.json";
         String secondFile = "src/test/resources/file2.json";
         String diff = Differ.generate(firstFile, secondFile, "json");
-        Path jsonResultPath
+        Path resultPath
                 = Path.of("src/test/resources/jsonResult.txt");
-        String expected = Files.readString(jsonResultPath);
+        String expected = Files.readString(resultPath);
         assertThat(diff).isEqualTo(expected);
     }
 }
