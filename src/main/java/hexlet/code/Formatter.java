@@ -22,7 +22,6 @@ public class Formatter {
         } else if (format.equalsIgnoreCase(JSON)) {
             result = Json.formatToJson(map);
         }
-        System.out.println(result);
         return result;
     }
 }

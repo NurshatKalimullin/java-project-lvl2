@@ -64,8 +64,6 @@ public class DifferTests {
         Path resultPath
                 = Path.of("src/test/resources/jsonResult.txt");
         String expected = Files.readString(resultPath);
-        System.out.println(diff);
-        System.out.println(expected);
         assertThat(diff).isEqualTo(expected);
     }
 }
