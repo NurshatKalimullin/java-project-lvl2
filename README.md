@@ -17,4 +17,4 @@
 
 
 ### No format flag result
-![Alt text](/screenshots/noFormtResult.png?raw=true "Differece counter")
+![Alt text](/screenshots/noFormatResult.png?raw=true "Differece counter")
