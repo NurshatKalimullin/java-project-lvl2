@@ -18,8 +18,8 @@ public class Plain {
                     String key2 = entry2.getKey();
                     Object value2 = entry2.getValue();
 
-                    if (key1.substring(2).equals(key2.substring(2)) &&
-                            key2.startsWith("+ ")) {
+                    if (key1.substring(2).equals(key2.substring(2))
+                            && key2.startsWith("+ ")) {
                         result = result + "Property '"
                                 + key1.substring(2)
                                 + "' was updated. From "
@@ -30,13 +30,13 @@ public class Plain {
                         break;
                     }
                 }
-                if (!map.containsKey("+ " + key1.substring(2))){
+                if (!map.containsKey("+ " + key1.substring(2))) {
                     result = result + "Property '"
                             + key1.substring(2)
                             + "' was removed"
                             + "\n";
                 }
-            } else if (key1.startsWith("+ ") && !map.containsKey("- " + key1.substring(2))){
+            } else if (key1.startsWith("+ ") && !map.containsKey("- " + key1.substring(2))) {
                 result = result + "Property '"
                         + key1.substring(2)
                         + "' was added with value: "
@@ -51,13 +51,13 @@ public class Plain {
 
     private static String formatValue(Object value) {
         String result;
-        if (!String.valueOf(value).equals("null") &&
-                (value.getClass().getSimpleName().equals("ArrayList") ||
-                value.getClass().getSimpleName().equals("LinkedHashMap"))) {
+        if (!String.valueOf(value).equals("null")
+                && (value.getClass().getSimpleName().equals("ArrayList")
+                || value.getClass().getSimpleName().equals("LinkedHashMap"))) {
             result = "[complex value]";
         } else {
-            if (!String.valueOf(value).equals("null") &&
-                    value.getClass().getSimpleName().equals("String")) {
+            if (!String.valueOf(value).equals("null")
+                    && value.getClass().getSimpleName().equals("String")) {
                 result = "'" + String.valueOf(value) + "'";
             } else {
                 result = String.valueOf(value);

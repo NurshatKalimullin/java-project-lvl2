@@ -49,7 +49,7 @@ public class DifferTests {
     public void testPlainResult() throws Exception {
         String firstFile = "src/test/resources/file1.json";
         String secondFile = "src/test/resources/file2.json";
-        String diff = Differ.generate(firstFile, secondFile, "plain" );
+        String diff = Differ.generate(firstFile, secondFile, "plain");
         Path resultPath
                 = Path.of("src/test/resources/plainResult.txt");
         String expected = Files.readString(resultPath);
