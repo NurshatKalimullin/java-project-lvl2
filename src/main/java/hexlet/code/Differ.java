@@ -1,13 +1,13 @@
 package hexlet.code;
 
 
+import hexlet.code.formats.Formatter;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class Differ {
 
@@ -15,35 +15,16 @@ public class Differ {
     public static String generate(String filepath1, String filepath2, String format)
             throws Exception {
 
-        String firstFileContents = readFile(filepath1);
-        String secondFileContents = readFile(filepath2);
+        String firstFileFormat = getDataFormat(filepath1);
+        String secondFileFormat = getDataFormat(filepath2);
 
-        LinkedHashMap<String, Object> diffs
-                = new LinkedHashMap<>();
+        String firstFileContents = readFile(filepath1, firstFileFormat);
+        String secondFileContents = readFile(filepath2, secondFileFormat);
 
-        Map<String, Object> firstMap = Parser.getFileData(firstFileContents, filepath1);
-        Map<String, Object> secondMap = Parser.getFileData(secondFileContents, filepath2);
+        Map<String, Object> firstMap = Parser.getFileData(firstFileContents, firstFileFormat, filepath1);
+        Map<String, Object> secondMap = Parser.getFileData(secondFileContents, secondFileFormat, filepath2);
 
-        //extract keys and sort them
-        Set<String> firstKeys = firstMap.keySet();
-        Set<String> secondKeys = secondMap.keySet();
-        TreeSet<String> unionKeys = new TreeSet<>(firstKeys);
-        unionKeys.addAll(secondKeys);
-
-        for (String key : unionKeys) {
-            if (firstMap.containsKey(key) && secondMap.containsKey(key)) {
-                if (String.valueOf(firstMap.get(key)).equals(String.valueOf(secondMap.get(key)))) {
-                    diffs.put("  " + key, firstMap.get(key));
-                } else {
-                    diffs.put("- " + key, firstMap.get(key));
-                    diffs.put("+ " + key, secondMap.get(key));
-                }
-            } else if (firstMap.containsKey(key) && !secondMap.containsKey(key)) {
-                diffs.put("- " + key, firstMap.get(key));
-            } else {
-                diffs.put("+ " + key, secondMap.get(key));
-            }
-        }
+        LinkedHashMap<String, Object> diffs = MapComparator.compareMaps(firstMap, secondMap);
         return Formatter.format(diffs, format);
     }
 
@@ -53,9 +34,9 @@ public class Differ {
     }
 
 
-    private static String readFile(String filepath) throws Exception {
-        if (!(filepath).endsWith(".json")
-                && !(filepath.endsWith(".yml"))) {
+    private static String readFile(String filepath, String fileFormat) throws Exception {
+        if (!fileFormat.equals("json")
+                && !(fileFormat.equals("yml"))) {
             throw new Exception("File format is incorrect");
         }
         // Creating a path choosing file from local
@@ -69,4 +50,12 @@ public class Differ {
         fileContent = Files.readString(absolutePath);
         return fileContent;
     }
+
+    private static String getDataFormat(String filePath) {
+        int index = filePath.lastIndexOf('.');
+        return index > 0
+                ? filePath.substring(index + 1)
+                : "";
+    }
+
 }

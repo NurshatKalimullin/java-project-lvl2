@@ -1,9 +1,6 @@
-package hexlet.code;
+package hexlet.code.formats;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import hexlet.code.formats.Json;
-import hexlet.code.formats.Plain;
-import hexlet.code.formats.Stylish;
 
 import java.util.LinkedHashMap;
 

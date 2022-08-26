@@ -12,19 +12,23 @@ import java.util.Map;
 public class Parser {
 
 
-    public static Map<String, Object> getFileData(String fileContents, String filepath) throws IOException {
+    public static Map<String, Object> getFileData(String fileContents, String fileFormat, String filepath)
+            throws IOException {
         Map<String, Object> map = new HashMap<>();
-        if (filepath.endsWith(".json")) {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
-            map = mapper.readValue(fileContents, new TypeReference<>() {
-            });
+        switch(fileFormat) {
+            case "json":
+                ObjectMapper mapper = new ObjectMapper();
+                mapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
+                map = mapper.readValue(fileContents, new TypeReference<>() {
+                });
+                break;
+            case "yml":
+                mapper = new ObjectMapper(new YAMLFactory());
+                map = mapper.readValue(fileContents, new TypeReference<>() { });
+                break;
+            default:
+                System.out.println("Wrong file format. Please, upload correct file.");
         }
-        if (filepath.endsWith(".yml")) {
-            ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-            map = mapper.readValue(fileContents, new TypeReference<>() { });
-        }
-
         return map;
     }
 }
