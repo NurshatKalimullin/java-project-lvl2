@@ -2,9 +2,8 @@ package hexlet.code;
 
 public interface MyConstants {
 
-    public void printStatus();
-
     interface Statuses {
+        void printStatus();
         String CHANGED = "changed";
         String UNCHANGED = "unchanged";
         String DELETED = "deleted";
@@ -12,6 +11,7 @@ public interface MyConstants {
     }
 
     interface Formats {
+        void printFormat();
         String STYLISH = "stylish";
         String PLAIN = "plain";
         String JSON = "json";
