@@ -47,6 +47,16 @@ public class DifferTests {
 
 
     @Test
+    public void testEmptyJsonFiles() throws Exception {
+        String firstFile = "src/test/resources/emptyJson2.json";
+        String secondFile = "src/test/resources/emptyJson2.json";
+        String diff = Differ.generate(firstFile, secondFile);
+        String expected = "{\n}";
+        assertThat(diff).isEqualTo(expected);
+    }
+
+
+    @Test
     public void testPlainResult() throws Exception {
         String firstFile = "src/test/resources/file1.json";
         String secondFile = "src/test/resources/file2.json";

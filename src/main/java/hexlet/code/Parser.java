@@ -19,8 +19,13 @@ public class Parser {
             case "json":
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
-                map = mapper.readValue(fileContents, new TypeReference<>() {
-                });
+                mapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
+                try {
+                    map = mapper.readValue(fileContents, new TypeReference<>() {
+                    });
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
                 break;
             case "yml":
                 mapper = new ObjectMapper(new YAMLFactory());
