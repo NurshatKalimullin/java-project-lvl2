@@ -6,7 +6,6 @@ import hexlet.code.formats.Formatter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Differ {
@@ -24,7 +23,10 @@ public class Differ {
         Map<String, Object> firstMap = Parser.getFileData(firstFileContents, firstFileFormat, filepath1);
         Map<String, Object> secondMap = Parser.getFileData(secondFileContents, secondFileFormat, filepath2);
 
-        LinkedHashMap<String, Object> diffs = MapComparator.compareMaps(firstMap, secondMap);
+//        LinkedHashMap<String, Object> diffs = MapComparator.compareMaps(firstMap, secondMap);
+
+        Map<String, Changes> diffs = MapComparator.compareMaps(firstMap, secondMap);
+
         return Formatter.format(diffs, format);
     }
 

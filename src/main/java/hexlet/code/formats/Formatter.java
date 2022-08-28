@@ -1,8 +1,9 @@
 package hexlet.code.formats;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import hexlet.code.Changes;
 
-import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Formatter {
 
@@ -10,7 +11,7 @@ public class Formatter {
     private static final String PLAIN = "plain";
     private static final String JSON = "json";
 
-    public static String format(LinkedHashMap<String, Object> map, String format) throws JsonProcessingException {
+    public static String format(Map<String, Changes> map, String format) throws JsonProcessingException {
         String result = "";
         if (format.equalsIgnoreCase(STYLISH)) {
             result = Stylish.formatToStylish(map);
