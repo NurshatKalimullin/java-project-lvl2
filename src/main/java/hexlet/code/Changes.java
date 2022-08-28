@@ -6,10 +6,10 @@ public final class Changes {
     private final Object newValue;
     private final String status;
 
-    public Changes(Object oldValue, Object newValue, String status) {
-        this.oldValue = oldValue;
-        this.newValue = newValue;
-        this.status = status;
+    public Changes(Object oldestValue, Object newestValue, String statuses) {
+        this.oldValue = oldestValue;
+        this.newValue = newestValue;
+        this.status = statuses;
     }
 
     public Object getOldValue() {
