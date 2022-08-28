@@ -4,12 +4,12 @@ import hexlet.code.Changes;
 
 import java.util.Map;
 
-public class Stylish {
+import static hexlet.code.MyConstants.Statuses.CHANGED;
+import static hexlet.code.MyConstants.Statuses.UNCHANGED;
+import static hexlet.code.MyConstants.Statuses.DELETED;
+import static hexlet.code.MyConstants.Statuses.ADDED;
 
-    private static final String CHANGED = "changed";
-    private static final String UNCHANGED = "unchanged";
-    private static final String DELETED = "deleted";
-    private static final String ADDED = "added";
+public class Stylish {
 
     public static String formatToStylish(Map<String, Changes> map) {
         StringBuilder mapAsString = new StringBuilder("{\n");
@@ -31,10 +31,6 @@ public class Stylish {
             }
         }
 
-//        StringBuilder mapAsString = new StringBuilder("{\n");
-//        for (String key : map.keySet()) {
-//            mapAsString.append("  ").append(key).append(": ").append(map.get(key)).append("\n");
-//        }
         mapAsString.append("}");
         mapAsString.delete(mapAsString.length() - 1, mapAsString.length()).append("}");
         return mapAsString.toString();

@@ -5,11 +5,11 @@ import hexlet.code.Changes;
 
 import java.util.Map;
 
-public class Formatter {
+import static hexlet.code.MyConstants.Formats.PLAIN;
+import static hexlet.code.MyConstants.Formats.STYLISH;
+import static hexlet.code.MyConstants.Formats.JSON;
 
-    private static final String STYLISH = "stylish";
-    private static final String PLAIN = "plain";
-    private static final String JSON = "json";
+public class Formatter {
 
     public static String format(Map<String, Changes> map, String format) throws JsonProcessingException {
         String result = "";

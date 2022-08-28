@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static hexlet.code.MyConstants.Formats.JSON;
+import static hexlet.code.MyConstants.Formats.YML;
+
 public class Parser {
 
 
@@ -17,7 +20,7 @@ public class Parser {
             throws IOException {
         Map<String, Object> map = new HashMap<>();
         switch (fileFormat) {
-            case "json":
+            case JSON:
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
                 mapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
@@ -28,7 +31,7 @@ public class Parser {
                     System.out.println(e);
                 }
                 break;
-            case "yml":
+            case YML:
                 mapper = new ObjectMapper(new YAMLFactory());
                 map = mapper.readValue(fileContents, new TypeReference<>() { });
                 break;

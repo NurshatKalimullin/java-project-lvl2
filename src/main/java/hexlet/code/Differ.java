@@ -8,6 +8,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
+import static hexlet.code.MyConstants.Formats.JSON;
+import static hexlet.code.MyConstants.Formats.YML;
+import static hexlet.code.MyConstants.Formats.STYLISH;
+
+
 public class Differ {
 
 
@@ -23,8 +28,6 @@ public class Differ {
         Map<String, Object> firstMap = Parser.getFileData(firstFileContents, firstFileFormat, filepath1);
         Map<String, Object> secondMap = Parser.getFileData(secondFileContents, secondFileFormat, filepath2);
 
-//        LinkedHashMap<String, Object> diffs = MapComparator.compareMaps(firstMap, secondMap);
-
         Map<String, Changes> diffs = MapComparator.compareMaps(firstMap, secondMap);
 
         return Formatter.format(diffs, format);
@@ -32,13 +35,13 @@ public class Differ {
 
 
     public static String generate(String filepath1, String filepath2) throws Exception {
-        return generate(filepath1, filepath2, "stylish");
+        return generate(filepath1, filepath2, STYLISH);
     }
 
 
     private static String readFile(String filepath, String fileFormat) throws Exception {
-        if (!fileFormat.equals("json")
-                && !(fileFormat.equals("yml"))) {
+        if (!fileFormat.equals(JSON)
+                && !(fileFormat.equals(YML))) {
             throw new Exception("File format is incorrect");
         }
         // Creating a path choosing file from local

@@ -6,6 +6,11 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import static hexlet.code.MyConstants.Statuses.CHANGED;
+import static hexlet.code.MyConstants.Statuses.UNCHANGED;
+import static hexlet.code.MyConstants.Statuses.DELETED;
+import static hexlet.code.MyConstants.Statuses.ADDED;
+
 
 public class MapComparator {
 
@@ -13,8 +18,6 @@ public class MapComparator {
     public static Map<String, Changes> compareMaps(Map<String, Object> firstMap,
                                                    Map<String, Object> secondMap) {
 
-//        LinkedHashMap<String, Object> diffs
-//                = new LinkedHashMap<>();
         Map<String, Changes> diffs = new TreeMap<>();
 
         //extract keys and sort them
@@ -23,33 +26,17 @@ public class MapComparator {
         TreeSet<String> unionKeys = new TreeSet<>(firstKeys);
         unionKeys.addAll(secondKeys);
 
-//        for (String key : unionKeys) {
-//            if (firstMap.containsKey(key) && secondMap.containsKey(key)) {
-//                if (String.valueOf(firstMap.get(key)).equals(String.valueOf(secondMap.get(key)))) {
-//                    diffs.put("  " + key, firstMap.get(key));
-//                } else {
-//                    diffs.put("- " + key, firstMap.get(key));
-//                    diffs.put("+ " + key, secondMap.get(key));
-//                }
-//            } else if (firstMap.containsKey(key) && !secondMap.containsKey(key)) {
-//                diffs.put("- " + key, firstMap.get(key));
-//            } else {
-//                diffs.put("+ " + key, secondMap.get(key));
-//            }
-//        }
-
-
         for (String key : unionKeys) {
             if (firstMap.containsKey(key) && secondMap.containsKey(key)) {
                 if (String.valueOf(firstMap.get(key)).equals(String.valueOf(secondMap.get(key)))) {
-                    diffs.put(key, new Changes(firstMap.get(key), secondMap.get(key), "unchanged"));
+                    diffs.put(key, new Changes(firstMap.get(key), secondMap.get(key), UNCHANGED));
                 } else {
-                    diffs.put(key, new Changes(firstMap.get(key), secondMap.get(key), "changed"));
+                    diffs.put(key, new Changes(firstMap.get(key), secondMap.get(key), CHANGED));
                 }
             } else if (firstMap.containsKey(key) && !secondMap.containsKey(key)) {
-                diffs.put(key, new Changes(firstMap.get(key), secondMap.get(key), "deleted"));
+                diffs.put(key, new Changes(firstMap.get(key), secondMap.get(key), DELETED));
             } else {
-                diffs.put(key, new Changes(firstMap.get(key), secondMap.get(key), "added"));
+                diffs.put(key, new Changes(firstMap.get(key), secondMap.get(key), ADDED));
             }
         }
 
