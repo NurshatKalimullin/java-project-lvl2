@@ -3,6 +3,7 @@ package hexlet.code;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class Parser {
                 try {
                     map = mapper.readValue(fileContents, new TypeReference<>() {
                     });
-                } catch (Exception e) {
+                } catch (MismatchedInputException e) {
                     System.out.println(e);
                 }
                 break;
