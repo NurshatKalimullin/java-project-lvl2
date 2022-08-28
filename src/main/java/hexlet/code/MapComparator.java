@@ -1,16 +1,21 @@
 package hexlet.code;
 
-import java.util.*;
+
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
 
 public class MapComparator {
 
 
     public static Map<String, Changes> compareMaps(Map<String, Object> firstMap,
-                                                            Map<String, Object> secondMap) {
+                                                   Map<String, Object> secondMap) {
 
 //        LinkedHashMap<String, Object> diffs
 //                = new LinkedHashMap<>();
-        Map<String, Changes> diffs= new TreeMap<>();
+        Map<String, Changes> diffs = new TreeMap<>();
 
         //extract keys and sort them
         Set<String> firstKeys = firstMap.keySet();

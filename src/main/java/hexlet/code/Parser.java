@@ -15,7 +15,7 @@ public class Parser {
     public static Map<String, Object> getFileData(String fileContents, String fileFormat, String filepath)
             throws IOException {
         Map<String, Object> map = new HashMap<>();
-        switch(fileFormat) {
+        switch (fileFormat) {
             case "json":
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
