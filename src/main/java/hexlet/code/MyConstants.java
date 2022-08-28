@@ -2,6 +2,8 @@ package hexlet.code;
 
 public interface MyConstants {
 
+    public void printStatus();
+
     interface Statuses {
         String CHANGED = "changed";
         String UNCHANGED = "unchanged";
