@@ -2,6 +2,7 @@ package hexlet.code.formats;
 
 import hexlet.code.Changes;
 
+import java.util.List;
 import java.util.Map;
 
 import static hexlet.code.MyConstants.Statuses.CHANGED;
@@ -11,45 +12,42 @@ import static hexlet.code.MyConstants.Statuses.ADDED;
 public class Plain {
 
     public static String formatToStylish(Map<String, Changes> map) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         for (Map.Entry<String, Changes> entry : map.entrySet()) {
             if (entry.getValue().getStatus().equalsIgnoreCase(CHANGED)) {
-                result = result + "Property '"
-                        + entry.getKey()
-                        + "' was updated. From "
-                        + formatValue(entry.getValue().getOldValue())
-                        + " to "
-                        + formatValue(entry.getValue().getNewValue())
-                        + "\n";
+                result.append("Property '")
+                        .append(entry.getKey())
+                        .append("' was updated. From ")
+                        .append(formatValue(entry.getValue().getOldValue()))
+                        .append(" to ")
+                        .append(formatValue(entry.getValue().getNewValue()))
+                        .append("\n");
             } else if (entry.getValue().getStatus().equalsIgnoreCase(DELETED)) {
-                result = result + "Property '"
-                        + entry.getKey()
-                        + "' was removed"
-                        + "\n";
+                result.append("Property '")
+                        .append(entry.getKey())
+                        .append("' was removed")
+                        .append("\n");
             } else if (entry.getValue().getStatus().equalsIgnoreCase(ADDED)) {
-                result = result + "Property '"
-                        + entry.getKey()
-                        + "' was added with value: "
-                        + formatValue(entry.getValue().getNewValue())
-                        + "\n";
+                result.append("Property '")
+                        .append(entry.getKey())
+                        .append("' was added with value: ")
+                        .append(formatValue(entry.getValue().getNewValue()))
+                        .append("\n");
             }
         }
-        result = result.substring(0, result.length() - 1);
-        return result;
+        result = new StringBuilder(result.substring(0, result.length() - 1));
+        return result.toString();
     }
 
 
     private static String formatValue(Object value) {
         String result;
-        if (!String.valueOf(value).equals("null")
-                && (value.getClass().getSimpleName().equals("ArrayList")
-                || value.getClass().getSimpleName().equals("LinkedHashMap"))) {
-            result = "[complex value]";
+        if (value instanceof Map || value instanceof List) {
+            return "[complex value]";
         } else {
-            if (!String.valueOf(value).equals("null")
-                    && value.getClass().getSimpleName().equals("String")) {
-                result = "'" + String.valueOf(value) + "'";
+            if (value instanceof String) {
+                result = "'" + value + "'";
             } else {
                 result = String.valueOf(value);
             }

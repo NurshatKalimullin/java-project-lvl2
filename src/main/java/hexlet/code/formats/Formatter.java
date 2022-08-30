@@ -11,14 +11,20 @@ import static hexlet.code.MyConstants.Formats.JSON;
 
 public class Formatter {
 
-    public static String format(Map<String, Changes> map, String format) throws JsonProcessingException {
-        String result = "";
-        if (format.equalsIgnoreCase(STYLISH)) {
-            result = Stylish.formatToStylish(map);
-        } else if (format.equalsIgnoreCase(PLAIN)) {
-            result = Plain.formatToStylish(map);
-        } else if (format.equalsIgnoreCase(JSON)) {
-            result = Json.formatToJson(map);
+    public static String format(Map<String, Changes> map, String format) throws Exception {
+        String result;
+        switch (format) {
+            case STYLISH:
+                result = Stylish.formatToStylish(map);
+                break;
+            case PLAIN:
+                result = Plain.formatToStylish(map);
+                break;
+            case JSON:
+                result = Json.formatToJson(map);
+                break;
+            default:
+                throw new Exception("Format is not recognized. Please, try again.");
         }
         return result;
     }

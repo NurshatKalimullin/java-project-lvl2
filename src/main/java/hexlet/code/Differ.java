@@ -25,8 +25,8 @@ public class Differ {
         String firstFileContents = readFile(filepath1, firstFileFormat);
         String secondFileContents = readFile(filepath2, secondFileFormat);
 
-        Map<String, Object> firstMap = Parser.getFileData(firstFileContents, firstFileFormat, filepath1);
-        Map<String, Object> secondMap = Parser.getFileData(secondFileContents, secondFileFormat, filepath2);
+        Map<String, Object> firstMap = Parser.getFileData(firstFileContents, firstFileFormat);
+        Map<String, Object> secondMap = Parser.getFileData(secondFileContents, secondFileFormat);
 
         Map<String, Changes> diffs = MapComparator.compareMaps(firstMap, secondMap);
 
@@ -46,13 +46,11 @@ public class Differ {
         }
         // Creating a path choosing file from local
         // directory by creating an object of Path class
-        Path absolutePath
-                = Paths.get(filepath);
+        Path absolutePath = Paths.get(filepath);
 
-        String fileContent;
         // Now calling Files.readString() method to
         // read the file
-        fileContent = Files.readString(absolutePath);
+        String fileContent = Files.readString(absolutePath);
         return fileContent;
     }
 
