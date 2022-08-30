@@ -1,6 +1,5 @@
 package hexlet.code.formats;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import hexlet.code.Changes;
 
 import java.util.Map;

@@ -50,8 +50,7 @@ public class Differ {
 
         // Now calling Files.readString() method to
         // read the file
-        String fileContent = Files.readString(absolutePath);
-        return fileContent;
+        return Files.readString(absolutePath);
     }
 
     private static String getDataFormat(String filePath) {
