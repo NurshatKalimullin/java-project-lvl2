@@ -27,12 +27,12 @@ public class MapComparator {
         unionKeys.addAll(secondKeys);
 
         for (String key : unionKeys) {
-            if (firstMap.containsKey(key) && secondMap.containsKey(key)) {
-                if (String.valueOf(firstMap.get(key)).equals(String.valueOf(secondMap.get(key)))) {
-                    diffs.put(key, new Changes(firstMap.get(key), secondMap.get(key), UNCHANGED));
-                } else {
-                    diffs.put(key, new Changes(firstMap.get(key), secondMap.get(key), CHANGED));
-                }
+            if (firstMap.containsKey(key) && secondMap.containsKey(key)
+                    && String.valueOf(firstMap.get(key)).equals(String.valueOf(secondMap.get(key)))) {
+                diffs.put(key, new Changes(firstMap.get(key), secondMap.get(key), UNCHANGED));
+            } else if (firstMap.containsKey(key) && secondMap.containsKey(key)
+                    && !String.valueOf(firstMap.get(key)).equals(String.valueOf(secondMap.get(key)))) {
+                diffs.put(key, new Changes(firstMap.get(key), secondMap.get(key), CHANGED));
             } else if (firstMap.containsKey(key) && !secondMap.containsKey(key)) {
                 diffs.put(key, new Changes(firstMap.get(key), secondMap.get(key), DELETED));
             } else {
