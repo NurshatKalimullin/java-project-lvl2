@@ -1,6 +1,6 @@
 package hexlet.code;
 
-public interface MyConstants {
+public interface Constants {
 
     interface Statuses {
         void printStatus();

@@ -8,9 +8,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
-import static hexlet.code.MyConstants.Formats.JSON;
-import static hexlet.code.MyConstants.Formats.YML;
-import static hexlet.code.MyConstants.Formats.STYLISH;
+import static hexlet.code.Constants.Formats.JSON;
+import static hexlet.code.Constants.Formats.YML;
+import static hexlet.code.Constants.Formats.STYLISH;
 
 
 public class Differ {
@@ -28,7 +28,7 @@ public class Differ {
         Map<String, Object> firstMap = Parser.getFileData(firstFileContents, firstFileFormat);
         Map<String, Object> secondMap = Parser.getFileData(secondFileContents, secondFileFormat);
 
-        Map<String, Changes> diffs = MapComparator.compareMaps(firstMap, secondMap);
+        Map<String, Change> diffs = MapComparator.compareMaps(firstMap, secondMap);
 
         return Formatter.format(diffs, format);
     }

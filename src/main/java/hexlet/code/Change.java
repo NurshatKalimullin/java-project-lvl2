@@ -1,12 +1,12 @@
 package hexlet.code;
 
-public final class Changes {
+public final class Change {
 
     private final Object oldValue;
     private final Object newValue;
     private final String status;
 
-    public Changes(Object oldestValue, Object newestValue, String statuses) {
+    public Change(Object oldestValue, Object newestValue, String statuses) {
         this.oldValue = oldestValue;
         this.newValue = newestValue;
         this.status = statuses;

@@ -10,8 +10,8 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-import static hexlet.code.MyConstants.Formats.JSON;
-import static hexlet.code.MyConstants.Formats.YML;
+import static hexlet.code.Constants.Formats.JSON;
+import static hexlet.code.Constants.Formats.YML;
 
 public class Parser {
 

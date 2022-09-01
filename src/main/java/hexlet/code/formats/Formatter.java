@@ -1,16 +1,16 @@
 package hexlet.code.formats;
 
-import hexlet.code.Changes;
+import hexlet.code.Change;
 
 import java.util.Map;
 
-import static hexlet.code.MyConstants.Formats.PLAIN;
-import static hexlet.code.MyConstants.Formats.STYLISH;
-import static hexlet.code.MyConstants.Formats.JSON;
+import static hexlet.code.Constants.Formats.PLAIN;
+import static hexlet.code.Constants.Formats.STYLISH;
+import static hexlet.code.Constants.Formats.JSON;
 
 public class Formatter {
 
-    public static String format(Map<String, Changes> map, String format) throws Exception {
+    public static String format(Map<String, Change> map, String format) throws Exception {
         String result;
         switch (format) {
             case STYLISH:
@@ -23,7 +23,9 @@ public class Formatter {
                 result = Json.formatToJson(map);
                 break;
             default:
-                throw new Exception("Format is not recognized. Please, try again.");
+                throw new Exception(String
+                        .format("%s format is not correct. Please, request %s or %s or %s result formats.",
+                                format, STYLISH, PLAIN, JSON));
         }
         return result;
     }

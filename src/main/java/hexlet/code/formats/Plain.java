@@ -1,20 +1,20 @@
 package hexlet.code.formats;
 
-import hexlet.code.Changes;
+import hexlet.code.Change;
 
 import java.util.List;
 import java.util.Map;
 
-import static hexlet.code.MyConstants.Statuses.CHANGED;
-import static hexlet.code.MyConstants.Statuses.DELETED;
-import static hexlet.code.MyConstants.Statuses.ADDED;
+import static hexlet.code.Constants.Statuses.CHANGED;
+import static hexlet.code.Constants.Statuses.DELETED;
+import static hexlet.code.Constants.Statuses.ADDED;
 
 public class Plain {
 
-    public static String formatToStylish(Map<String, Changes> map) {
+    public static String formatToStylish(Map<String, Change> map) {
         StringBuilder result = new StringBuilder();
 
-        for (Map.Entry<String, Changes> entry : map.entrySet()) {
+        for (Map.Entry<String, Change> entry : map.entrySet()) {
             if (entry.getValue().getStatus().equalsIgnoreCase(CHANGED)) {
                 result.append("Property '")
                         .append(entry.getKey())

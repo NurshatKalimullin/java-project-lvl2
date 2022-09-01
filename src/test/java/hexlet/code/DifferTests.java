@@ -2,6 +2,8 @@ package hexlet.code;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 
 import java.io.IOException;
@@ -30,75 +32,27 @@ public class DifferTests {
     }
 
 
-    @Test
-    public void testJsonFilesStylishResult() throws Exception {
+    @ParameterizedTest
+    @ValueSource(strings = {"json", "yml"})
+    public void testJsonFiles(String format) throws Exception {
         String firstFile = "src/test/resources/file1.json";
         String secondFile = "src/test/resources/file2.json";
-        String diff = Differ.generate(firstFile, secondFile, "stylish");
-        assertThat(diff).isEqualTo(resultStylish);
+        assertThat(Differ.generate(firstFile, secondFile)) .isEqualTo(resultStylish);
+        assertThat(Differ.generate(firstFile, secondFile, "stylish")).isEqualTo(resultStylish);
+        assertThat(Differ.generate(firstFile, secondFile, "plain")).isEqualTo(resultPlain);
+        assertThat(Differ.generate(firstFile, secondFile, "json")).isEqualTo(resultJson);
     }
 
 
-    @Test
-    public void testJsonFilesPlainResult() throws Exception {
-        String firstFile = "src/test/resources/file1.json";
-        String secondFile = "src/test/resources/file2.json";
-        String diff = Differ.generate(firstFile, secondFile, "plain");
-        assertThat(diff).isEqualTo(resultPlain);
-    }
-
-
-    @Test
-    public void testJsonFilesJsonResult() throws Exception {
-        String firstFile = "src/test/resources/file1.json";
-        String secondFile = "src/test/resources/file2.json";
-        String diff = Differ.generate(firstFile, secondFile, "json");
-        assertThat(diff).isEqualTo(resultJson);
-    }
-
-
-    @Test
-    public void testJsonFilesDefaultResult() throws Exception {
-        String firstFile = "src/test/resources/file1.json";
-        String secondFile = "src/test/resources/file2.json";
-        String diff = Differ.generate(firstFile, secondFile);
-        assertThat(diff).isEqualTo(resultStylish);
-    }
-
-
-    @Test
-    public void testYamlFilesStylishResult() throws Exception {
+    @ParameterizedTest
+    @ValueSource(strings = {"json", "yml"})
+    public void testYmlFiles(String format) throws Exception {
         String firstFile = "src/test/resources/file1.yml";
         String secondFile = "src/test/resources/file2.yml";
-        String diff = Differ.generate(firstFile, secondFile, "stylish");
-        assertThat(diff).isEqualTo(resultStylish);
-    }
-
-
-    @Test
-    public void testYamlFilesPlainResult() throws Exception {
-        String firstFile = "src/test/resources/file1.yml";
-        String secondFile = "src/test/resources/file2.yml";
-        String diff = Differ.generate(firstFile, secondFile, "plain");
-        assertThat(diff).isEqualTo(resultPlain);
-    }
-
-
-    @Test
-    public void testYamlFilesDefaultResult() throws Exception {
-        String firstFile = "src/test/resources/file1.yml";
-        String secondFile = "src/test/resources/file2.yml";
-        String diff = Differ.generate(firstFile, secondFile);
-        assertThat(diff).isEqualTo(resultStylish);
-    }
-
-
-    @Test
-    public void testYamlFilesJsonResult() throws Exception {
-        String firstFile = "src/test/resources/file1.yml";
-        String secondFile = "src/test/resources/file2.yml";
-        String diff = Differ.generate(firstFile, secondFile, "json");
-        assertThat(diff).isEqualTo(resultJson);
+        assertThat(Differ.generate(firstFile, secondFile)) .isEqualTo(resultStylish);
+        assertThat(Differ.generate(firstFile, secondFile, "stylish")).isEqualTo(resultStylish);
+        assertThat(Differ.generate(firstFile, secondFile, "plain")).isEqualTo(resultPlain);
+        assertThat(Differ.generate(firstFile, secondFile, "json")).isEqualTo(resultJson);
     }
 
 
@@ -123,5 +77,18 @@ public class DifferTests {
         String diff = Differ.generate(firstFile, secondFile);
         String expected = "{\n}";
         assertThat(diff).isEqualTo(expected);
+    }
+
+    @Test
+    public void testIncorrectResultFormat() throws Exception {
+        String firstFile = "src/test/resources/emptyJson2.json";
+        String secondFile = "src/test/resources/emptyJson2.json";
+        String expected = "txt format is not correct. Please, request stylish or plain or json result formats.";
+        try {
+            Differ.generate(firstFile, secondFile, "txt");
+        } catch (Exception e) {
+            assertThat(e.getMessage()).isEqualTo(expected);
+        }
+
     }
 }
