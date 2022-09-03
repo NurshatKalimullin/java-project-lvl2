@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -71,18 +72,9 @@ public class DifferTests {
 
 
     @Test
-    public void testEmptyJsonFiles() throws Exception {
-        String firstFile = "src/test/resources/emptyJson2.json";
-        String secondFile = "src/test/resources/emptyJson2.json";
-        String diff = Differ.generate(firstFile, secondFile);
-        String expected = "{\n}";
-        assertThat(diff).isEqualTo(expected);
-    }
-
-    @Test
     public void testIncorrectResultFormat() throws Exception {
-        String firstFile = "src/test/resources/emptyJson2.json";
-        String secondFile = "src/test/resources/emptyJson2.json";
+        String firstFile = "src/test/resources/file1.json";
+        String secondFile = "src/test/resources/file2.json";
         String expected = "txt format is not correct. Please, request stylish or plain or json result formats.";
         try {
             Differ.generate(firstFile, secondFile, "txt");

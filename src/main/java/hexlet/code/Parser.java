@@ -21,7 +21,7 @@ public class Parser {
         Map<String, Object> map = new HashMap<>();
         switch (fileFormat) {
             case JSON:
-                map = getMapFromJson(fileContents, map);
+                map = getMapFromJson(fileContents);
                 break;
             case YML:
                 map = getMapFromYml(fileContents);
@@ -39,17 +39,12 @@ public class Parser {
         return map;
     }
 
-    private static Map<String, Object> getMapFromJson(String fileContents, Map<String, Object> map)
-            throws JsonProcessingException {
+    private static Map<String, Object> getMapFromJson(String fileContents)
+            throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
         mapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
-        try {
-            map = mapper.readValue(fileContents, new TypeReference<>() {
-            });
-        } catch (MismatchedInputException e) {
-            System.out.println(e);
-        }
+        Map<String, Object> map = mapper.readValue(fileContents, new TypeReference<>() {});
         return map;
     }
 }
