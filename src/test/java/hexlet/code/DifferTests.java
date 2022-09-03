@@ -1,6 +1,5 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,7 +12,7 @@ import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DifferTests {
+public final class DifferTests {
 
     private static String resultJson;
     private static String resultPlain;
