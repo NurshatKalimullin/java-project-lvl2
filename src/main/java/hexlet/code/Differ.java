@@ -25,12 +25,12 @@ public class Differ {
         String firstFileContents = readFile(filepath1, firstFileFormat);
         String secondFileContents = readFile(filepath2, secondFileFormat);
 
-        Map<String, Object> firstMap = Parser.getFileData(firstFileContents, firstFileFormat);
-        Map<String, Object> secondMap = Parser.getFileData(secondFileContents, secondFileFormat);
+        Map<String, Object> data1 = Parser.getFileData(firstFileContents, firstFileFormat);
+        Map<String, Object> data2 = Parser.getFileData(secondFileContents, secondFileFormat);
 
-        Map<String, Change> diffs = MapComparator.compareMaps(firstMap, secondMap);
+        Map<String, Change> diff = MapComparator.compareMaps(data1, data2);
 
-        return Formatter.format(diffs, format);
+        return Formatter.format(diff, format);
     }
 
 

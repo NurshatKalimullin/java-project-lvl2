@@ -34,21 +34,9 @@ public final class DifferTests {
 
     @ParameterizedTest
     @ValueSource(strings = {"json", "yml"})
-    public void testJsonFiles(String format) throws Exception {
-        String firstFile = "src/test/resources/file1.json";
-        String secondFile = "src/test/resources/file2.json";
-        assertThat(Differ.generate(firstFile, secondFile)) .isEqualTo(resultStylish);
-        assertThat(Differ.generate(firstFile, secondFile, "stylish")).isEqualTo(resultStylish);
-        assertThat(Differ.generate(firstFile, secondFile, "plain")).isEqualTo(resultPlain);
-        assertThat(Differ.generate(firstFile, secondFile, "json")).isEqualTo(resultJson);
-    }
-
-
-    @ParameterizedTest
-    @ValueSource(strings = {"json", "yml"})
-    public void testYmlFiles(String format) throws Exception {
-        String firstFile = "src/test/resources/file1.yml";
-        String secondFile = "src/test/resources/file2.yml";
+    public void testFiles(String format) throws Exception {
+        String firstFile = "src/test/resources/file1." + format;
+        String secondFile = "src/test/resources/file2." + format;
         assertThat(Differ.generate(firstFile, secondFile)) .isEqualTo(resultStylish);
         assertThat(Differ.generate(firstFile, secondFile, "stylish")).isEqualTo(resultStylish);
         assertThat(Differ.generate(firstFile, secondFile, "plain")).isEqualTo(resultPlain);
