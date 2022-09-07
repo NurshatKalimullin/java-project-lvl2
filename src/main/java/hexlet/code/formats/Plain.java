@@ -5,7 +5,10 @@ import hexlet.code.Change;
 import java.util.List;
 import java.util.Map;
 
-import static hexlet.code.Constants.Statuses.*;
+import static hexlet.code.Constants.Statuses.CHANGED;
+import static hexlet.code.Constants.Statuses.UNCHANGED;
+import static hexlet.code.Constants.Statuses.DELETED;
+import static hexlet.code.Constants.Statuses.ADDED;
 
 public class Plain {
 
