@@ -19,14 +19,14 @@ public class Differ {
     public static String generate(String filepath1, String filepath2, String format)
             throws Exception {
 
-        String firstFileFormat = getDataFormat(filepath1);
-        String secondFileFormat = getDataFormat(filepath2);
+        String format1 = getDataFormat(filepath1);
+        String format2 = getDataFormat(filepath2);
 
-        String firstFileContents = readFile(filepath1, firstFileFormat);
-        String secondFileContents = readFile(filepath2, secondFileFormat);
+        String content1 = readFile(filepath1, format1);
+        String content2 = readFile(filepath2, format2);
 
-        Map<String, Object> data1 = Parser.getFileData(firstFileContents, firstFileFormat);
-        Map<String, Object> data2 = Parser.getFileData(secondFileContents, secondFileFormat);
+        Map<String, Object> data1 = Parser.getFileData(content1, format1);
+        Map<String, Object> data2 = Parser.getFileData(content2, format2);
 
         Map<String, Change> diff = MapComparator.compareMaps(data1, data2);
 

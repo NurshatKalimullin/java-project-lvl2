@@ -62,7 +62,7 @@ public final class DifferTests {
     public void testIncorrectResultFormat() throws Exception {
         String firstFile = "src/test/resources/file1.json";
         String secondFile = "src/test/resources/file2.json";
-        String expected = "txt format is not correct. Please, request stylish or plain or json result formats.";
+        String expected = "Wrong format of input data: txt";
         try {
             Differ.generate(firstFile, secondFile, "txt");
         } catch (Exception e) {

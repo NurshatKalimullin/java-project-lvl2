@@ -5,35 +5,42 @@ import hexlet.code.Change;
 import java.util.List;
 import java.util.Map;
 
-import static hexlet.code.Constants.Statuses.CHANGED;
-import static hexlet.code.Constants.Statuses.DELETED;
-import static hexlet.code.Constants.Statuses.ADDED;
+import static hexlet.code.Constants.Statuses.*;
 
 public class Plain {
 
-    public static String formatToStylish(Map<String, Change> map) {
+    public static String formatToStylish(Map<String, Change> map) throws Exception {
         StringBuilder result = new StringBuilder();
 
         for (Map.Entry<String, Change> entry : map.entrySet()) {
-            if (entry.getValue().getStatus().equalsIgnoreCase(CHANGED)) {
-                result.append("Property '")
-                        .append(entry.getKey())
-                        .append("' was updated. From ")
-                        .append(formatValue(entry.getValue().getOldValue()))
-                        .append(" to ")
-                        .append(formatValue(entry.getValue().getNewValue()))
-                        .append("\n");
-            } else if (entry.getValue().getStatus().equalsIgnoreCase(DELETED)) {
-                result.append("Property '")
-                        .append(entry.getKey())
-                        .append("' was removed")
-                        .append("\n");
-            } else if (entry.getValue().getStatus().equalsIgnoreCase(ADDED)) {
-                result.append("Property '")
-                        .append(entry.getKey())
-                        .append("' was added with value: ")
-                        .append(formatValue(entry.getValue().getNewValue()))
-                        .append("\n");
+            String status = entry.getValue().getStatus();
+            switch (status) {
+                case CHANGED:
+                    result.append("Property '")
+                            .append(entry.getKey())
+                            .append("' was updated. From ")
+                            .append(formatValue(entry.getValue().getOldValue()))
+                            .append(" to ")
+                            .append(formatValue(entry.getValue().getNewValue()))
+                            .append("\n");
+                    break;
+                case DELETED:
+                    result.append("Property '")
+                            .append(entry.getKey())
+                            .append("' was removed")
+                            .append("\n");
+                    break;
+                case ADDED:
+                    result.append("Property '")
+                            .append(entry.getKey())
+                            .append("' was added with value: ")
+                            .append(formatValue(entry.getValue().getNewValue()))
+                            .append("\n");
+                    break;
+                case UNCHANGED:
+                    break;
+                default:
+                    throw new Exception("Unexpected status:" + status);
             }
         }
         result = new StringBuilder(result.substring(0, result.length() - 1));

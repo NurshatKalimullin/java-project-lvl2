@@ -15,10 +15,10 @@ import static hexlet.code.Constants.Formats.YML;
 public class Parser {
 
 
-    public static Map<String, Object> getFileData(String fileContents, String fileFormat)
+    public static Map<String, Object> getFileData(String fileContents, String format)
             throws Exception {
         Map<String, Object> map = new HashMap<>();
-        switch (fileFormat) {
+        switch (format) {
             case JSON:
                 map = getMapFromJson(fileContents);
                 break;
@@ -26,7 +26,7 @@ public class Parser {
                 map = getMapFromYml(fileContents);
                 break;
             default:
-                throw new Exception("Wrong file format. Please, upload correct file.");
+                throw new Exception("Wrong format of input data: " + format);
         }
         return map;
     }

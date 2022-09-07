@@ -11,8 +11,7 @@ public class Json {
 
     public static String formatToJson(Map<String, Change> map) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        String result = objectMapper.writeValueAsString(map);
-        return result;
+        return objectMapper.writeValueAsString(map);
     }
 
 }

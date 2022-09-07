@@ -23,9 +23,7 @@ public class Formatter {
                 result = Json.formatToJson(map);
                 break;
             default:
-                throw new Exception(String
-                        .format("%s format is not correct. Please, request %s or %s or %s result formats.",
-                                format, STYLISH, PLAIN, JSON));
+                throw new Exception("Wrong format of input data: " + format);
         }
         return result;
     }
